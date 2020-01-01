@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>C:\Users\Emil\Desktop\CAD\VOLTCONVERT\VoltconvertV3\VoltConvertV3\VoltConvertV3.sch</source>
+    <date>26/12/2019 20:41:39</date>
+    <tool>Eeschema (5.1.5)-3</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>VoltConvertV3.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="J2">
+      <value>LOWER</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x17_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_02x17_Odd_Even" description="Generic connector, double row, 02x17, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E009B80</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>UPPER</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x17_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_02x17_Odd_Even" description="Generic connector, double row, 02x17, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E00E74E</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>SOLO</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x13_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_02x13_Odd_Even" description="Generic connector, double row, 02x13, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E011F02</tstamp>
+    </comp>
+    <comp ref="J5">
+      <value>PEDAL</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_02x10_Odd_Even" description="Generic connector, double row, 02x10, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E013222</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>74LVC16244A</value>
+      <footprint>Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm</footprint>
+      <libsource lib="SN74LVC16244ADGGR" part="SN74LVC16244ADGGR" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E0B96D3</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>74LVC16244A</value>
+      <footprint>Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm</footprint>
+      <libsource lib="SN74LVC16244ADGGR" part="SN74LVC16244ADGGR" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E0C03BF</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>74LVC16244A</value>
+      <footprint>Package_SO:TSSOP-48_6.1x12.5mm_P0.5mm</footprint>
+      <libsource lib="SN74LVC16244ADGGR" part="SN74LVC16244ADGGR" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E0C20B0</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>OUT</value>
+      <footprint>Connector_PinSocket_2.54mm:PinSocket_2x22_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_02x22_Odd_Even" description="Generic connector, double row, 02x22, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5E2D3683</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>0.1uF</value>
+      <footprint>Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5EB0C67F</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>0.1uF</value>
+      <footprint>Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5EB8318C</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>0.1uF</value>
+      <footprint>Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5EBA8BE6</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector_Generic" part="Conn_02x10_Odd_Even">
+      <description>Generic connector, double row, 02x10, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_2x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_02x10_Odd_Even</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+        <pin num="17" name="Pin_17" type="passive"/>
+        <pin num="18" name="Pin_18" type="passive"/>
+        <pin num="19" name="Pin_19" type="passive"/>
+        <pin num="20" name="Pin_20" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_02x13_Odd_Even">
+      <description>Generic connector, double row, 02x13, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_2x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_02x13_Odd_Even</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+        <pin num="17" name="Pin_17" type="passive"/>
+        <pin num="18" name="Pin_18" type="passive"/>
+        <pin num="19" name="Pin_19" type="passive"/>
+        <pin num="20" name="Pin_20" type="passive"/>
+        <pin num="21" name="Pin_21" type="passive"/>
+        <pin num="22" name="Pin_22" type="passive"/>
+        <pin num="23" name="Pin_23" type="passive"/>
+        <pin num="24" name="Pin_24" type="passive"/>
+        <pin num="25" name="Pin_25" type="passive"/>
+        <pin num="26" name="Pin_26" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_02x17_Odd_Even">
+      <description>Generic connector, double row, 02x17, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_2x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_02x17_Odd_Even</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+        <pin num="17" name="Pin_17" type="passive"/>
+        <pin num="18" name="Pin_18" type="passive"/>
+        <pin num="19" name="Pin_19" type="passive"/>
+        <pin num="20" name="Pin_20" type="passive"/>
+        <pin num="21" name="Pin_21" type="passive"/>
+        <pin num="22" name="Pin_22" type="passive"/>
+        <pin num="23" name="Pin_23" type="passive"/>
+        <pin num="24" name="Pin_24" type="passive"/>
+        <pin num="25" name="Pin_25" type="passive"/>
+        <pin num="26" name="Pin_26" type="passive"/>
+        <pin num="27" name="Pin_27" type="passive"/>
+        <pin num="28" name="Pin_28" type="passive"/>
+        <pin num="29" name="Pin_29" type="passive"/>
+        <pin num="30" name="Pin_30" type="passive"/>
+        <pin num="31" name="Pin_31" type="passive"/>
+        <pin num="32" name="Pin_32" type="passive"/>
+        <pin num="33" name="Pin_33" type="passive"/>
+        <pin num="34" name="Pin_34" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_02x22_Odd_Even">
+      <description>Generic connector, double row, 02x22, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_2x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_02x22_Odd_Even</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+        <pin num="17" name="Pin_17" type="passive"/>
+        <pin num="18" name="Pin_18" type="passive"/>
+        <pin num="19" name="Pin_19" type="passive"/>
+        <pin num="20" name="Pin_20" type="passive"/>
+        <pin num="21" name="Pin_21" type="passive"/>
+        <pin num="22" name="Pin_22" type="passive"/>
+        <pin num="23" name="Pin_23" type="passive"/>
+        <pin num="24" name="Pin_24" type="passive"/>
+        <pin num="25" name="Pin_25" type="passive"/>
+        <pin num="26" name="Pin_26" type="passive"/>
+        <pin num="27" name="Pin_27" type="passive"/>
+        <pin num="28" name="Pin_28" type="passive"/>
+        <pin num="29" name="Pin_29" type="passive"/>
+        <pin num="30" name="Pin_30" type="passive"/>
+        <pin num="31" name="Pin_31" type="passive"/>
+        <pin num="32" name="Pin_32" type="passive"/>
+        <pin num="33" name="Pin_33" type="passive"/>
+        <pin num="34" name="Pin_34" type="passive"/>
+        <pin num="35" name="Pin_35" type="passive"/>
+        <pin num="36" name="Pin_36" type="passive"/>
+        <pin num="37" name="Pin_37" type="passive"/>
+        <pin num="38" name="Pin_38" type="passive"/>
+        <pin num="39" name="Pin_39" type="passive"/>
+        <pin num="40" name="Pin_40" type="passive"/>
+        <pin num="41" name="Pin_41" type="passive"/>
+        <pin num="42" name="Pin_42" type="passive"/>
+        <pin num="43" name="Pin_43" type="passive"/>
+        <pin num="44" name="Pin_44" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="SN74LVC16244ADGGR" part="SN74LVC16244ADGGR">
+      <footprints>
+        <fp>DGG48</fp>
+        <fp>DGG48-M</fp>
+        <fp>DGG48-L</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">SN74LVC16244ADGGR</field>
+        <field name="Footprint">DGG48</field>
+      </fields>
+      <pins>
+        <pin num="1" name="*1OE" type="input"/>
+        <pin num="2" name="1Y1" type="output"/>
+        <pin num="3" name="1Y2" type="output"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="1Y3" type="output"/>
+        <pin num="6" name="1Y4" type="output"/>
+        <pin num="7" name="VCC" type="power_in"/>
+        <pin num="8" name="2Y1" type="output"/>
+        <pin num="9" name="2Y2" type="output"/>
+        <pin num="10" name="GND" type="power_in"/>
+        <pin num="11" name="2Y3" type="output"/>
+        <pin num="12" name="2Y4" type="output"/>
+        <pin num="13" name="3Y1" type="output"/>
+        <pin num="14" name="3Y2" type="output"/>
+        <pin num="15" name="GND" type="power_in"/>
+        <pin num="16" name="3Y3" type="output"/>
+        <pin num="17" name="3Y4" type="output"/>
+        <pin num="18" name="VCC" type="power_in"/>
+        <pin num="19" name="4Y1" type="output"/>
+        <pin num="20" name="4Y2" type="output"/>
+        <pin num="21" name="GND" type="power_in"/>
+        <pin num="22" name="4Y3" type="output"/>
+        <pin num="23" name="4Y4" type="output"/>
+        <pin num="24" name="*4OE" type="input"/>
+        <pin num="25" name="*3OE" type="input"/>
+        <pin num="26" name="4A4" type="input"/>
+        <pin num="27" name="4A3" type="input"/>
+        <pin num="28" name="GND" type="power_in"/>
+        <pin num="29" name="4A2" type="input"/>
+        <pin num="30" name="4A1" type="input"/>
+        <pin num="31" name="VCC" type="power_in"/>
+        <pin num="32" name="3A4" type="input"/>
+        <pin num="33" name="3A3" type="input"/>
+        <pin num="34" name="GND" type="power_in"/>
+        <pin num="35" name="3A2" type="input"/>
+        <pin num="36" name="3A1" type="input"/>
+        <pin num="37" name="2A4" type="input"/>
+        <pin num="38" name="2A3" type="input"/>
+        <pin num="39" name="GND" type="power_in"/>
+        <pin num="40" name="2A2" type="input"/>
+        <pin num="41" name="2A1" type="input"/>
+        <pin num="42" name="VCC" type="power_in"/>
+        <pin num="43" name="1A4" type="input"/>
+        <pin num="44" name="1A3" type="input"/>
+        <pin num="45" name="GND" type="power_in"/>
+        <pin num="46" name="1A2" type="input"/>
+        <pin num="47" name="1A1" type="input"/>
+        <pin num="48" name="*2OE" type="input"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector_Generic">
+      <uri>C:\Program Files\KiCad\share\kicad\library/Connector_Generic.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>C:\Program Files\KiCad\share\kicad\library/Device.lib</uri>
+    </library>
+    <library logical="SN74LVC16244ADGGR">
+      <uri>C:\Users\Emil\Desktop\CAD\VOLTCONVERT\VoltconvertV3\VoltConvertV3/SN74LVC16244ADGGR.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/SU2">
+      <node ref="U3" pin="6"/>
+      <node ref="J1" pin="36"/>
+    </net>
+    <net code="2" name="/UD1">
+      <node ref="U2" pin="20"/>
+      <node ref="J1" pin="30"/>
+    </net>
+    <net code="3" name="/UD2">
+      <node ref="U2" pin="22"/>
+      <node ref="J1" pin="31"/>
+    </net>
+    <net code="4" name="/UD3">
+      <node ref="J1" pin="32"/>
+      <node ref="U2" pin="23"/>
+    </net>
+    <net code="5" name="/UD4">
+      <node ref="J1" pin="33"/>
+      <node ref="U3" pin="2"/>
+    </net>
+    <net code="6" name="/SU4">
+      <node ref="J1" pin="34"/>
+      <node ref="U3" pin="3"/>
+    </net>
+    <net code="7" name="/SU3">
+      <node ref="J1" pin="35"/>
+      <node ref="U3" pin="5"/>
+    </net>
+    <net code="8" name="/UD0">
+      <node ref="J1" pin="29"/>
+      <node ref="U2" pin="19"/>
+    </net>
+    <net code="9" name="/SD2">
+      <node ref="J1" pin="37"/>
+      <node ref="U3" pin="8"/>
+    </net>
+    <net code="10" name="/SD4">
+      <node ref="U3" pin="11"/>
+      <node ref="J1" pin="39"/>
+    </net>
+    <net code="11" name="/PD1">
+      <node ref="U3" pin="12"/>
+      <node ref="J1" pin="41"/>
+    </net>
+    <net code="12" name="/PD0">
+      <node ref="U3" pin="13"/>
+      <node ref="J1" pin="40"/>
+    </net>
+    <net code="13" name="/GND">
+      <node ref="U2" pin="25"/>
+      <node ref="U3" pin="25"/>
+      <node ref="U3" pin="29"/>
+      <node ref="U3" pin="28"/>
+      <node ref="U3" pin="27"/>
+      <node ref="U3" pin="26"/>
+      <node ref="C2" pin="1"/>
+      <node ref="U3" pin="24"/>
+      <node ref="U3" pin="10"/>
+      <node ref="U1" pin="4"/>
+      <node ref="U3" pin="1"/>
+      <node ref="U3" pin="21"/>
+      <node ref="U3" pin="15"/>
+      <node ref="U2" pin="45"/>
+      <node ref="U2" pin="48"/>
+      <node ref="U1" pin="10"/>
+      <node ref="U2" pin="28"/>
+      <node ref="U1" pin="15"/>
+      <node ref="C3" pin="1"/>
+      <node ref="U2" pin="34"/>
+      <node ref="U2" pin="39"/>
+      <node ref="U1" pin="1"/>
+      <node ref="U2" pin="4"/>
+      <node ref="U3" pin="48"/>
+      <node ref="U3" pin="35"/>
+      <node ref="C1" pin="1"/>
+      <node ref="U3" pin="30"/>
+      <node ref="U3" pin="32"/>
+      <node ref="U3" pin="33"/>
+      <node ref="U3" pin="34"/>
+      <node ref="U3" pin="39"/>
+      <node ref="U3" pin="4"/>
+      <node ref="U3" pin="45"/>
+      <node ref="U1" pin="34"/>
+      <node ref="U2" pin="21"/>
+      <node ref="U2" pin="24"/>
+      <node ref="U1" pin="21"/>
+      <node ref="U1" pin="24"/>
+      <node ref="U1" pin="25"/>
+      <node ref="U1" pin="28"/>
+      <node ref="U1" pin="48"/>
+      <node ref="J1" pin="44"/>
+      <node ref="J1" pin="42"/>
+      <node ref="U1" pin="39"/>
+      <node ref="U1" pin="45"/>
+      <node ref="U2" pin="1"/>
+      <node ref="U2" pin="10"/>
+      <node ref="U2" pin="15"/>
+    </net>
+    <net code="14" name="/SD3">
+      <node ref="U3" pin="9"/>
+      <node ref="J1" pin="38"/>
+    </net>
+    <net code="15" name="/UU1">
+      <node ref="J1" pin="27"/>
+      <node ref="U2" pin="16"/>
+    </net>
+    <net code="16" name="/LU3">
+      <node ref="U1" pin="22"/>
+      <node ref="J1" pin="15"/>
+    </net>
+    <net code="17" name="/LU2">
+      <node ref="U1" pin="23"/>
+      <node ref="J1" pin="16"/>
+    </net>
+    <net code="18" name="/LU1">
+      <node ref="U2" pin="2"/>
+      <node ref="J1" pin="17"/>
+    </net>
+    <net code="19" name="/LU0">
+      <node ref="J1" pin="18"/>
+      <node ref="U2" pin="3"/>
+    </net>
+    <net code="20" name="/LD0">
+      <node ref="J1" pin="19"/>
+      <node ref="U2" pin="5"/>
+    </net>
+    <net code="21" name="/CS">
+      <node ref="U1" pin="3"/>
+      <node ref="J1" pin="2"/>
+    </net>
+    <net code="22" name="/LD1">
+      <node ref="U2" pin="6"/>
+      <node ref="J1" pin="20"/>
+    </net>
+    <net code="23" name="/LD2">
+      <node ref="J1" pin="21"/>
+      <node ref="U2" pin="8"/>
+    </net>
+    <net code="24" name="/LD3">
+      <node ref="U2" pin="9"/>
+      <node ref="J1" pin="22"/>
+    </net>
+    <net code="25" name="/LD4">
+      <node ref="U2" pin="11"/>
+      <node ref="J1" pin="23"/>
+    </net>
+    <net code="26" name="/UU4">
+      <node ref="U2" pin="12"/>
+      <node ref="J1" pin="24"/>
+    </net>
+    <net code="27" name="/UU3">
+      <node ref="U2" pin="13"/>
+      <node ref="J1" pin="25"/>
+    </net>
+    <net code="28" name="/UU2">
+      <node ref="U2" pin="14"/>
+      <node ref="J1" pin="26"/>
+    </net>
+    <net code="29" name="/UU0">
+      <node ref="J1" pin="28"/>
+      <node ref="U2" pin="17"/>
+    </net>
+    <net code="30" name="/D">
+      <node ref="J1" pin="3"/>
+      <node ref="U1" pin="5"/>
+    </net>
+    <net code="31" name="/CL">
+      <node ref="J1" pin="1"/>
+      <node ref="U1" pin="2"/>
+    </net>
+    <net code="32" name="/A">
+      <node ref="J1" pin="10"/>
+      <node ref="U1" pin="14"/>
+    </net>
+    <net code="33" name="/AS">
+      <node ref="U1" pin="16"/>
+      <node ref="J1" pin="11"/>
+    </net>
+    <net code="34" name="/B">
+      <node ref="J1" pin="12"/>
+      <node ref="U1" pin="17"/>
+    </net>
+    <net code="35" name="/C">
+      <node ref="J1" pin="13"/>
+      <node ref="U1" pin="19"/>
+    </net>
+    <net code="36" name="Net-(U3-Pad14)">
+      <node ref="U3" pin="14"/>
+    </net>
+    <net code="37" name="Net-(U3-Pad16)">
+      <node ref="U3" pin="16"/>
+    </net>
+    <net code="38" name="Net-(U3-Pad17)">
+      <node ref="U3" pin="17"/>
+    </net>
+    <net code="39" name="Net-(U3-Pad19)">
+      <node ref="U3" pin="19"/>
+    </net>
+    <net code="40" name="Net-(U3-Pad20)">
+      <node ref="U3" pin="20"/>
+    </net>
+    <net code="41" name="Net-(U3-Pad22)">
+      <node ref="U3" pin="22"/>
+    </net>
+    <net code="42" name="Net-(U3-Pad23)">
+      <node ref="U3" pin="23"/>
+    </net>
+    <net code="43" name="Net-(J5-Pad5)">
+      <node ref="J5" pin="5"/>
+    </net>
+    <net code="44" name="Net-(J5-Pad20)">
+      <node ref="J5" pin="20"/>
+    </net>
+    <net code="45" name="Net-(J5-Pad18)">
+      <node ref="J5" pin="18"/>
+    </net>
+    <net code="46" name="Net-(J5-Pad16)">
+      <node ref="J5" pin="16"/>
+    </net>
+    <net code="47" name="Net-(J5-Pad14)">
+      <node ref="J5" pin="14"/>
+    </net>
+    <net code="48" name="Net-(J5-Pad12)">
+      <node ref="J5" pin="12"/>
+    </net>
+    <net code="49" name="Net-(J5-Pad10)">
+      <node ref="J5" pin="10"/>
+    </net>
+    <net code="50" name="Net-(J5-Pad8)">
+      <node ref="J5" pin="8"/>
+    </net>
+    <net code="51" name="Net-(J5-Pad6)">
+      <node ref="J5" pin="6"/>
+    </net>
+    <net code="52" name="Net-(J5-Pad4)">
+      <node ref="J5" pin="4"/>
+    </net>
+    <net code="53" name="Net-(J5-Pad2)">
+      <node ref="J5" pin="2"/>
+    </net>
+    <net code="54" name="Net-(J5-Pad1)">
+      <node ref="J5" pin="1"/>
+    </net>
+    <net code="55" name="Net-(J5-Pad3)">
+      <node ref="J5" pin="3"/>
+    </net>
+    <net code="56" name="Net-(J5-Pad7)">
+      <node ref="J5" pin="7"/>
+    </net>
+    <net code="57" name="Net-(J5-Pad9)">
+      <node ref="J5" pin="9"/>
+    </net>
+    <net code="58" name="Net-(J5-Pad11)">
+      <node ref="J5" pin="11"/>
+    </net>
+    <net code="59" name="Net-(J5-Pad13)">
+      <node ref="J5" pin="13"/>
+    </net>
+    <net code="60" name="Net-(J5-Pad19)">
+      <node ref="J5" pin="19"/>
+    </net>
+    <net code="61" name="Net-(J4-Pad2)">
+      <node ref="J4" pin="2"/>
+    </net>
+    <net code="62" name="Net-(J4-Pad4)">
+      <node ref="J4" pin="4"/>
+    </net>
+    <net code="63" name="Net-(J4-Pad6)">
+      <node ref="J4" pin="6"/>
+    </net>
+    <net code="64" name="Net-(J4-Pad8)">
+      <node ref="J4" pin="8"/>
+    </net>
+    <net code="65" name="Net-(J4-Pad10)">
+      <node ref="J4" pin="10"/>
+    </net>
+    <net code="66" name="Net-(J4-Pad12)">
+      <node ref="J4" pin="12"/>
+    </net>
+    <net code="67" name="Net-(J4-Pad14)">
+      <node ref="J4" pin="14"/>
+    </net>
+    <net code="68" name="Net-(J4-Pad16)">
+      <node ref="J4" pin="16"/>
+    </net>
+    <net code="69" name="/+3.3V">
+      <node ref="C3" pin="2"/>
+      <node ref="U3" pin="7"/>
+      <node ref="U2" pin="31"/>
+      <node ref="U2" pin="42"/>
+      <node ref="U3" pin="18"/>
+      <node ref="C1" pin="2"/>
+      <node ref="C2" pin="2"/>
+      <node ref="U1" pin="31"/>
+      <node ref="U2" pin="18"/>
+      <node ref="U1" pin="42"/>
+      <node ref="U1" pin="7"/>
+      <node ref="U2" pin="7"/>
+      <node ref="U3" pin="31"/>
+      <node ref="J1" pin="43"/>
+      <node ref="U1" pin="18"/>
+      <node ref="U3" pin="42"/>
+    </net>
+    <net code="70" name="Net-(J4-Pad18)">
+      <node ref="J4" pin="18"/>
+    </net>
+    <net code="71" name="Net-(J3-Pad32)">
+      <node ref="J3" pin="32"/>
+    </net>
+    <net code="72" name="Net-(J2-Pad18)">
+      <node ref="J2" pin="18"/>
+    </net>
+    <net code="73" name="Net-(J2-Pad20)">
+      <node ref="J2" pin="20"/>
+    </net>
+    <net code="74" name="Net-(J2-Pad22)">
+      <node ref="J2" pin="22"/>
+    </net>
+    <net code="75" name="Net-(J2-Pad24)">
+      <node ref="J2" pin="24"/>
+    </net>
+    <net code="76" name="Net-(J2-Pad26)">
+      <node ref="J2" pin="26"/>
+    </net>
+    <net code="77" name="Net-(J3-Pad16)">
+      <node ref="J3" pin="16"/>
+    </net>
+    <net code="78" name="Net-(J3-Pad18)">
+      <node ref="J3" pin="18"/>
+    </net>
+    <net code="79" name="Net-(J3-Pad20)">
+      <node ref="J3" pin="20"/>
+    </net>
+    <net code="80" name="Net-(J3-Pad22)">
+      <node ref="J3" pin="22"/>
+    </net>
+    <net code="81" name="Net-(J3-Pad24)">
+      <node ref="J3" pin="24"/>
+    </net>
+    <net code="82" name="Net-(J3-Pad26)">
+      <node ref="J3" pin="26"/>
+    </net>
+    <net code="83" name="Net-(J3-Pad28)">
+      <node ref="J3" pin="28"/>
+    </net>
+    <net code="84" name="Net-(J3-Pad30)">
+      <node ref="J3" pin="30"/>
+    </net>
+    <net code="85" name="Net-(J2-Pad16)">
+      <node ref="J2" pin="16"/>
+    </net>
+    <net code="86" name="Net-(J3-Pad34)">
+      <node ref="J3" pin="34"/>
+    </net>
+    <net code="87" name="Net-(J2-Pad28)">
+      <node ref="J2" pin="28"/>
+    </net>
+    <net code="88" name="Net-(J2-Pad30)">
+      <node ref="J2" pin="30"/>
+    </net>
+    <net code="89" name="Net-(J2-Pad32)">
+      <node ref="J2" pin="32"/>
+    </net>
+    <net code="90" name="Net-(J2-Pad34)">
+      <node ref="J2" pin="34"/>
+    </net>
+    <net code="91" name="Net-(J3-Pad5)">
+      <node ref="J3" pin="5"/>
+    </net>
+    <net code="92" name="Net-(J4-Pad20)">
+      <node ref="J4" pin="20"/>
+    </net>
+    <net code="93" name="Net-(J4-Pad22)">
+      <node ref="J4" pin="22"/>
+    </net>
+    <net code="94" name="Net-(J4-Pad24)">
+      <node ref="J4" pin="24"/>
+    </net>
+    <net code="95" name="Net-(J4-Pad26)">
+      <node ref="J4" pin="26"/>
+    </net>
+    <net code="96" name="Net-(J4-Pad1)">
+      <node ref="J4" pin="1"/>
+    </net>
+    <net code="97" name="Net-(J4-Pad3)">
+      <node ref="J4" pin="3"/>
+    </net>
+    <net code="98" name="Net-(J4-Pad5)">
+      <node ref="J4" pin="5"/>
+    </net>
+    <net code="99" name="Net-(J4-Pad7)">
+      <node ref="J4" pin="7"/>
+    </net>
+    <net code="100" name="Net-(J4-Pad9)">
+      <node ref="J4" pin="9"/>
+    </net>
+    <net code="101" name="Net-(J4-Pad11)">
+      <node ref="J4" pin="11"/>
+    </net>
+    <net code="102" name="Net-(J4-Pad13)">
+      <node ref="J4" pin="13"/>
+    </net>
+    <net code="103" name="Net-(J3-Pad1)">
+      <node ref="J3" pin="1"/>
+    </net>
+    <net code="104" name="Net-(J3-Pad3)">
+      <node ref="J3" pin="3"/>
+    </net>
+    <net code="105" name="Net-(J3-Pad7)">
+      <node ref="J3" pin="7"/>
+    </net>
+    <net code="106" name="Net-(J3-Pad9)">
+      <node ref="J3" pin="9"/>
+    </net>
+    <net code="107" name="Net-(J3-Pad11)">
+      <node ref="J3" pin="11"/>
+    </net>
+    <net code="108" name="Net-(J3-Pad13)">
+      <node ref="J3" pin="13"/>
+    </net>
+    <net code="109" name="Net-(J3-Pad2)">
+      <node ref="J3" pin="2"/>
+    </net>
+    <net code="110" name="Net-(J3-Pad4)">
+      <node ref="J3" pin="4"/>
+    </net>
+    <net code="111" name="Net-(J3-Pad6)">
+      <node ref="J3" pin="6"/>
+    </net>
+    <net code="112" name="Net-(J3-Pad8)">
+      <node ref="J3" pin="8"/>
+    </net>
+    <net code="113" name="Net-(J3-Pad10)">
+      <node ref="J3" pin="10"/>
+    </net>
+    <net code="114" name="Net-(J3-Pad12)">
+      <node ref="J3" pin="12"/>
+    </net>
+    <net code="115" name="Net-(J3-Pad14)">
+      <node ref="J3" pin="14"/>
+    </net>
+    <net code="116" name="Net-(J2-Pad14)">
+      <node ref="J2" pin="14"/>
+    </net>
+    <net code="117" name="/LU4">
+      <node ref="U1" pin="20"/>
+      <node ref="J1" pin="14"/>
+    </net>
+    <net code="118" name="/G">
+      <node ref="U1" pin="12"/>
+      <node ref="J1" pin="8"/>
+    </net>
+    <net code="119" name="/GS">
+      <node ref="J1" pin="9"/>
+      <node ref="U1" pin="13"/>
+    </net>
+    <net code="120" name="/DS">
+      <node ref="J1" pin="4"/>
+      <node ref="U1" pin="6"/>
+    </net>
+    <net code="121" name="/E">
+      <node ref="J1" pin="5"/>
+      <node ref="U1" pin="8"/>
+    </net>
+    <net code="122" name="/F">
+      <node ref="J1" pin="6"/>
+      <node ref="U1" pin="9"/>
+    </net>
+    <net code="123" name="/FS">
+      <node ref="J1" pin="7"/>
+      <node ref="U1" pin="11"/>
+    </net>
+    <net code="125" name="/Ci">
+      <node ref="U1" pin="30"/>
+      <node ref="J2" pin="13"/>
+    </net>
+    <net code="126" name="/CLi">
+      <node ref="U1" pin="47"/>
+      <node ref="J2" pin="1"/>
+    </net>
+    <net code="127" name="/CSi">
+      <node ref="U1" pin="46"/>
+      <node ref="J2" pin="2"/>
+    </net>
+    <net code="128" name="/Di">
+      <node ref="U1" pin="44"/>
+      <node ref="J2" pin="3"/>
+    </net>
+    <net code="129" name="/Ei">
+      <node ref="U1" pin="41"/>
+      <node ref="J2" pin="5"/>
+    </net>
+    <net code="130" name="/DSi">
+      <node ref="U1" pin="43"/>
+      <node ref="J2" pin="4"/>
+    </net>
+    <net code="131" name="/Fi">
+      <node ref="U1" pin="40"/>
+      <node ref="J2" pin="6"/>
+    </net>
+    <net code="132" name="/FSi">
+      <node ref="J2" pin="7"/>
+      <node ref="U1" pin="38"/>
+    </net>
+    <net code="133" name="/Gi">
+      <node ref="J2" pin="8"/>
+      <node ref="U1" pin="37"/>
+    </net>
+    <net code="134" name="/GSi">
+      <node ref="J2" pin="9"/>
+      <node ref="U1" pin="36"/>
+    </net>
+    <net code="135" name="/ASi">
+      <node ref="J2" pin="11"/>
+      <node ref="U1" pin="33"/>
+    </net>
+    <net code="136" name="/Ai">
+      <node ref="J2" pin="10"/>
+      <node ref="U1" pin="35"/>
+    </net>
+    <net code="137" name="/Bi">
+      <node ref="J2" pin="12"/>
+      <node ref="U1" pin="32"/>
+    </net>
+    <net code="138" name="/LU4i">
+      <node ref="U1" pin="29"/>
+      <node ref="J2" pin="15"/>
+    </net>
+    <net code="139" name="/LU3i">
+      <node ref="J2" pin="17"/>
+      <node ref="U1" pin="27"/>
+    </net>
+    <net code="140" name="/LU2i">
+      <node ref="J2" pin="19"/>
+      <node ref="U1" pin="26"/>
+    </net>
+    <net code="141" name="/LU1i">
+      <node ref="U2" pin="47"/>
+      <node ref="J2" pin="21"/>
+    </net>
+    <net code="142" name="/LU0i">
+      <node ref="J2" pin="23"/>
+      <node ref="U2" pin="46"/>
+    </net>
+    <net code="143" name="/LD0i">
+      <node ref="U2" pin="44"/>
+      <node ref="J2" pin="25"/>
+    </net>
+    <net code="144" name="/LD1i">
+      <node ref="J2" pin="27"/>
+      <node ref="U2" pin="43"/>
+    </net>
+    <net code="145" name="/LD2i">
+      <node ref="J2" pin="29"/>
+      <node ref="U2" pin="41"/>
+    </net>
+    <net code="146" name="/LD3i">
+      <node ref="U2" pin="40"/>
+      <node ref="J2" pin="31"/>
+    </net>
+    <net code="147" name="/LD4i">
+      <node ref="U2" pin="38"/>
+      <node ref="J2" pin="33"/>
+    </net>
+    <net code="148" name="/UU4i">
+      <node ref="J3" pin="15"/>
+      <node ref="U2" pin="37"/>
+    </net>
+    <net code="149" name="/UU3i">
+      <node ref="J3" pin="17"/>
+      <node ref="U2" pin="36"/>
+    </net>
+    <net code="150" name="/UU2i">
+      <node ref="J3" pin="19"/>
+      <node ref="U2" pin="35"/>
+    </net>
+    <net code="151" name="/UU1i">
+      <node ref="U2" pin="33"/>
+      <node ref="J3" pin="21"/>
+    </net>
+    <net code="152" name="/SD4i">
+      <node ref="U3" pin="38"/>
+      <node ref="J4" pin="25"/>
+    </net>
+    <net code="153" name="/PD1i">
+      <node ref="U3" pin="37"/>
+      <node ref="J5" pin="15"/>
+    </net>
+    <net code="154" name="/PD0i">
+      <node ref="U3" pin="36"/>
+      <node ref="J5" pin="17"/>
+    </net>
+    <net code="155" name="/SD3i">
+      <node ref="J4" pin="23"/>
+      <node ref="U3" pin="40"/>
+    </net>
+    <net code="156" name="/UD2i">
+      <node ref="U2" pin="27"/>
+      <node ref="J3" pin="29"/>
+    </net>
+    <net code="157" name="/UU0i">
+      <node ref="J3" pin="23"/>
+      <node ref="U2" pin="32"/>
+    </net>
+    <net code="158" name="/UD0i">
+      <node ref="J3" pin="25"/>
+      <node ref="U2" pin="30"/>
+    </net>
+    <net code="159" name="/UD1i">
+      <node ref="U2" pin="29"/>
+      <node ref="J3" pin="27"/>
+    </net>
+    <net code="160" name="/UD3i">
+      <node ref="U2" pin="26"/>
+      <node ref="J3" pin="31"/>
+    </net>
+    <net code="161" name="/UD4i">
+      <node ref="J3" pin="33"/>
+      <node ref="U3" pin="47"/>
+    </net>
+    <net code="162" name="/SU4i">
+      <node ref="U3" pin="46"/>
+      <node ref="J4" pin="15"/>
+    </net>
+    <net code="163" name="/SU3i">
+      <node ref="U3" pin="44"/>
+      <node ref="J4" pin="17"/>
+    </net>
+    <net code="164" name="/SU2i">
+      <node ref="J4" pin="19"/>
+      <node ref="U3" pin="43"/>
+    </net>
+    <net code="165" name="/SD2i">
+      <node ref="J4" pin="21"/>
+      <node ref="U3" pin="41"/>
+    </net>
+  </nets>
+</export>
