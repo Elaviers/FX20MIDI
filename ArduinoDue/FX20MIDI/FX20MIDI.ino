@@ -2,7 +2,20 @@
 #include <PitchToNote.h>
 #include "QuickPin.h"
 
-#define SENDSERIALDEBUG 0
+#define SENDSERIALDEBUG 1
+
+#define FIRSTNOTE pitchC2
+#define FIRSTSOLONOTE pitchC4
+
+#define MANUALNOTECOUNT 61
+#define SOLONOTECOUNT 37
+#define PEDALNOTECOUNT 25
+
+#define MINVELMICROS 6500
+#define MAXVELMICROS 30000
+
+#define MINVELOUT 1
+#define MAXVELOUT 127
 
 uint32_t pdsrSnaps[4];
 
@@ -30,9 +43,6 @@ const Pin* soloDowns[3] =   { &dPins[6], &dPins[7], &dPins[8] };
 //                            D0          D1
 const Pin* pedalDowns[2] =  { &dPins[9],  &dPins[10] };
 
-bool pitchStates[4][120];
-bool prevPitchStates[4][120];
-
 enum Channel
 {
   PEDAL = 0,
@@ -41,9 +51,28 @@ enum Channel
   SOLO = 3
 };
 
+struct Note
+{
+  unsigned long lastUpTime;
+  unsigned long lastDownTime;
+};
+
+struct BasicNote
+{
+  bool state;
+  bool prev;
+};
+
+Note upperNotes[MANUALNOTECOUNT];
+Note lowerNotes[MANUALNOTECOUNT];
+Note soloNotes[SOLONOTECOUNT];
+BasicNote pedalNotes[PEDALNOTECOUNT];
+
+unsigned long currentMicros;
+
 void setup() {
   QUICKPIN::Setup();
-  
+
   for (int i = 0; i < 13; ++i)
     pitches[i]->UseInputMode();
 
@@ -68,106 +97,151 @@ void setup() {
 void scanPitch(int octavePitch)
 {
   pitches[octavePitch]->WaitForFallingEdge();
-  
+
   pdsrSnaps[0] = PIOA->PIO_PDSR;
   pdsrSnaps[1] = PIOB->PIO_PDSR;
   pdsrSnaps[2] = PIOC->PIO_PDSR;
   pdsrSnaps[3] = PIOD->PIO_PDSR;
 
+  //PEDAL
+  pedalNotes[octavePitch].state =       !pedalDowns[0]->ReadFromPDSRs(pdsrSnaps);
+  pedalNotes[12 + octavePitch].state =  !pedalDowns[1]->ReadFromPDSRs(pdsrSnaps);
+
   //CL
   if (octavePitch == 0)
   {
-    if (!lowerDowns[0]->ReadFromPDSRs(pdsrSnaps))       pitchStates[LOWER][pitchC1] = true;
-    else if (!lowerUps[0]->ReadFromPDSRs(pdsrSnaps))    pitchStates[LOWER][pitchC1] = false;
-  
-    if (!upperDowns[0]->ReadFromPDSRs(pdsrSnaps))       pitchStates[UPPER][pitchC1] = true;
-    else if (!lowerUps[0]->ReadFromPDSRs(pdsrSnaps))  pitchStates[UPPER][pitchC1] = false;
+    if (!lowerDowns[0]->ReadFromPDSRs(pdsrSnaps))       lowerNotes[0].lastDownTime = t;
+    else if (!lowerUps[0]->ReadFromPDSRs(pdsrSnaps))    lowerNotes[0].lastUpTime = t;
 
-    pitchStates[PEDAL][pitchC1] = !pedalDowns[0]->ReadFromPDSRs(pdsrSnaps);
+    if (!upperDowns[0]->ReadFromPDSRs(pdsrSnaps))       upperNotes[0].lastDownTime = t;
+    else if (!upperUps[0]->ReadFromPDSRs(pdsrSnaps))    upperNotes[0].lastUpTime = t;
 
-    if (!soloDowns[0]->ReadFromPDSRs(pdsrSnaps))        pitchStates[SOLO][pitchC3] = true;
-    else if (!soloUps[0]->ReadFromPDSRs(pdsrSnaps))     pitchStates[SOLO][pitchC3] = false;
+    pedalNotes[0].state = !pedalDowns[0]->ReadFromPDSRs(pdsrSnaps);
+
+    if (!soloDowns[0]->ReadFromPDSRs(pdsrSnaps))        soloNotes[0].lastDownTime = t;
+    else if (!soloUps[0]->ReadFromPDSRs(pdsrSnaps))     soloNotes[0].lastUpTime = t;
 
     return;
   }
-  
-//UPPER/LOWER
-  int basePitch = pitchC1 + octavePitch;
+
+  //UPPER/LOWER
   int pitch;
   for (int i = 0; i < 5; ++i)
   {
-    pitch = basePitch + i*12;
-    
-    if (!lowerDowns[i]->ReadFromPDSRs(pdsrSnaps))     pitchStates[LOWER][pitch] = true;
-    else if (!lowerUps[i]->ReadFromPDSRs(pdsrSnaps))  pitchStates[LOWER][pitch] = false;
+    pitch = i * 12 + octavePitch;
 
-    if (!upperDowns[i]->ReadFromPDSRs(pdsrSnaps))     pitchStates[UPPER][pitch] = true;
-    else if (!upperUps[i]->ReadFromPDSRs(pdsrSnaps))  pitchStates[UPPER][pitch] = false;
+    if (!lowerDowns[i]->ReadFromPDSRs(pdsrSnaps))     lowerNotes[pitch].lastDownTime = t;
+    else if (!lowerUps[i]->ReadFromPDSRs(pdsrSnaps))  lowerNotes[pitch].lastUpTime = t;
+
+    if (!upperDowns[i]->ReadFromPDSRs(pdsrSnaps))     upperNotes[pitch].lastDownTime = t;
+    else if (!upperUps[i]->ReadFromPDSRs(pdsrSnaps))  upperNotes[pitch].lastUpTime = t;
   }
 
-//PEDAL
-  pitchStates[PEDAL][basePitch] =       !pedalDowns[0]->ReadFromPDSRs(pdsrSnaps);
-  pitchStates[PEDAL][basePitch + 12] =  !pedalDowns[1]->ReadFromPDSRs(pdsrSnaps);
-
-//SOLO
-  basePitch = pitchC3 + octavePitch;
+  //SOLO
   for (int i = 0; i < 3; ++i)
   {
-    pitch = basePitch + i*12;
+    if (!soloDowns[i]->ReadFromPDSRs(pdsrSnaps))    soloNotes[i * 12 + octavePitch].lastDownTime = t;
+    else if (!soloUps[i]->ReadFromPDSRs(pdsrSnaps)) soloNotes[i * 12 + octavePitch].lastUpTime = t;
+  }
+}
+
+inline void SendNoteOn(byte channel, byte pitch, byte velocity = 127)
+{
+  MidiUSB.sendMIDI({0x09, 0x90 | channel, pitch, velocity});
+  delayMicroseconds(300);
+
+#if SENDSERIALDEBUG
+  SerialUSB.print(channel);
+  SerialUSB.print('-');
+  SerialUSB.print(pitch);
+  SerialUSB.println("->ON");
+#endif
+}
+
+inline void SendNoteOff(byte channel, byte pitch, byte velocity = 127)
+{
+  MidiUSB.sendMIDI({0x08, 0x80 | channel, pitch, velocity});
+  delayMicroseconds(300);
+
+#if SENDSERIALDEBUG
+  SerialUSB.print(channel);
+  SerialUSB.print('-');
+  SerialUSB.print(pitch);
+  SerialUSB.println("->OFF");
+#endif
+}
+
+const float VELOCITY_DIVISOR = (float)(MAXVELMICROS - MINVELMICROS) / (float)(MAXVELOUT - MINVELOUT);
+
+inline byte CalculateVelocity(unsigned long deltaMicros)
+{
+  signed long n = MAXVELMICROS - deltaMicros;
+
+  if (n < 0)
+    return MINVELOUT;
+
+  signed int vel = (unsigned int)((float)n / VELOCITY_DIVISOR) + MINVELOUT;
+  
+  return vel > MAXVELOUT ? MAXVELOUT : vel;
+}
+
+inline void ScanNote(Note& note, byte channel, byte pitch)
+{
+  if (note.lastUpTime && note.lastDownTime)
+  {
+    #if SENDSERIALDEBUG
+    SerialUSB.print(note.lastUpTime);
+    SerialUSB.print(" > ");
+    SerialUSB.print(note.lastDownTime);
+    SerialUSB.print(" : ");
+    #endif
     
-    if (!soloDowns[i]->ReadFromPDSRs(pdsrSnaps))    pitchStates[SOLO][pitch] = true;
-    else if (!soloUps[i]->ReadFromPDSRs(pdsrSnaps)) pitchStates[SOLO][pitch] = false;
+    if (note.lastDownTime < note.lastUpTime)
+      SendNoteOff(channel, pitch);
+    else
+      SendNoteOn(channel, pitch, CalculateVelocity(note.lastDownTime - note.lastUpTime));
+
+    note.lastUpTime = note.lastDownTime = 0;
   }
 }
 
 void loop() {
   noInterrupts();
+
+  currentMicros = micros(); 
+  
   for (int i = 0; i <= 12; ++i)
   {
     scanPitch(i);
   }
   interrupts();
 
-  while (MidiUSB.available()) { MidiUSB.read(); }
+  while (MidiUSB.available()) {
+    MidiUSB.read();
+  }
 
-  for (int channel = 0; channel < 4; ++channel)
+  for (int i = 0; i < MANUALNOTECOUNT; ++i)
   {
-    for (int pitch = pitchC1; pitch <= pitchC6; ++pitch)
+    ScanNote(lowerNotes[i], LOWER, FIRSTNOTE + i);
+    ScanNote(upperNotes[i], UPPER, FIRSTNOTE + i);
+  }
+
+  for (int i = 0; i < SOLONOTECOUNT; ++i)
+  {
+    ScanNote(soloNotes[i], SOLO, FIRSTSOLONOTE + i);
+  }
+
+  for (int i = 0; i < PEDALNOTECOUNT; ++i)
+  {
+    if (pedalNotes[i].state != pedalNotes[i].prev)
     {
-      const bool& state = pitchStates[channel][pitch];
-      bool& prev = prevPitchStates[channel][pitch];
-      
-      if (state != prev)
-      {
-        prev = state;
-  
-        if (state)
-        {
-          //Note on
-          MidiUSB.sendMIDI({0x09, 0x90 | channel, pitch, 127});
-          delayMicroseconds(300);
+      BasicNote& note = pedalNotes[i];
+      note.prev = note.state;
 
-#if SENDSERIALDEBUG
-          SerialUSB.print(channel);
-          SerialUSB.print('-');
-          SerialUSB.print(pitch);
-          SerialUSB.println("->ON");
-#endif
-        }
-        else
-        {
-          //Note off
-          MidiUSB.sendMIDI({0x08, 0x80 | channel, pitch, 127});
-          delayMicroseconds(300);
-
-#if SENDSERIALDEBUG
-          SerialUSB.print(channel);
-          SerialUSB.print('-');
-          SerialUSB.print(pitch);
-          SerialUSB.println("->OFF");
-#endif
-        }
-      }
+      if (note.state)
+        SendNoteOn(PEDAL, FIRSTNOTE + i);
+      else
+        SendNoteOff(PEDAL, FIRSTNOTE + i);
     }
   }
 
