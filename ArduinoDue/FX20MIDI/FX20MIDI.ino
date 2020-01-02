@@ -1,3 +1,9 @@
+/*
+ * NOTE: COMPILE WITH THE OPTIMISATION SWITCH SET TO O1!!!
+ * IF YOU DON'T, YOU'll DEFINETLY REALISE WHY YOU SHOULD!
+ */
+
+
 #include <MIDIUSB.h>
 #include <PitchToNote.h>
 #include "QuickPin.h"
@@ -39,7 +45,7 @@ const Pin* soloDowns[3] =   { &dPins[6], &dPins[7], &dPins[8] };
 //                            D0          D1
 const Pin* pedalDowns[2] =  { &dPins[9],  &dPins[10] };
 
-enum Channel
+enum Channel : byte
 {
   PEDAL = 0,
   LOWER = 1,
@@ -183,6 +189,11 @@ void scanPitch(int octavePitch)
 {
   pitches[octavePitch]->WaitForFallingEdge();
 
+  //Yeah, I have no idea why this works...
+  //1 clock = 11.905ns
+  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");  //95.23ns
+  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");  //190.48ns
+  
   pdsrSnaps[0] = PIOA->PIO_PDSR;
   pdsrSnaps[1] = PIOB->PIO_PDSR;
   pdsrSnaps[2] = PIOC->PIO_PDSR;

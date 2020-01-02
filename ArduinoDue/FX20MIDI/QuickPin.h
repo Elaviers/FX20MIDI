@@ -1,3 +1,5 @@
+#define ALWAYSINLINE __attribute__((always_inline))
+
 #define _BV(bit) \
   (1 << (bit)) 
 
@@ -20,12 +22,12 @@ class Pin
 public:
   Pin(volatile Pio *pio, uint32_t mask, int portIndex) : _pio(pio), _mask(mask), _portIndex(portIndex), _pin(-1) {}
 
-  inline void UseInputMode() const { pinMode(_pin, INPUT);};
+  ALWAYSINLINE void UseInputMode() const { pinMode(_pin, INPUT);};
 
-  inline bool ReadFromPDSRs(const uint32_t snapshot[4]) const { return snapshot[_portIndex] & _mask; }
-  inline bool Read() const { return _pio->PIO_PDSR & _mask; }
+  ALWAYSINLINE bool ReadFromPDSRs(const uint32_t snapshot[4]) const { return snapshot[_portIndex] & _mask; }
+  ALWAYSINLINE bool Read() const { return _pio->PIO_PDSR & _mask; }
 
-  inline void WaitForFallingEdge() const
+  ALWAYSINLINE void WaitForFallingEdge() const
   {
       while (_pio->PIO_PDSR & _mask == 0) { }
       while (_pio->PIO_PDSR & _mask) {}
