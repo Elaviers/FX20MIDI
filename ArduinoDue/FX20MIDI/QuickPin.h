@@ -27,12 +27,9 @@ public:
   ALWAYSINLINE bool ReadFromPDSRs(const uint32_t snapshot[4]) const { return snapshot[_portIndex] & _mask; }
   ALWAYSINLINE bool Read() const { return _pio->PIO_PDSR & _mask; }
 
-  ALWAYSINLINE void WaitForFallingEdge() const
-  {
-      while (_pio->PIO_PDSR & _mask == 0) { }
-      while (_pio->PIO_PDSR & _mask) {}
-  }
+  ALWAYSINLINE volatile Pio* GetPIO() const { return _pio; }
 
+  ALWAYSINLINE uint32_t GetMask() const { return _mask; }
 
   friend void QUICKPIN::Setup();
 };

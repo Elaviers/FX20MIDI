@@ -1,12 +1,7 @@
 /*
- * NOTE: COMPILE WITH THE OPTIMISATION SWITCH SET TO O1!!!
- * IF YOU DON'T, YOU'll DEFINETLY REALISE WHY YOU SHOULD!
- */
-
-
-#include <MIDIUSB.h>
-#include <PitchToNote.h>
-#include "QuickPin.h"
+   NOTE: COMPILE WITH THE OPTIMISATION SWITCH SET TO O1!!!
+   IF YOU DON'T, YOU'll DEFINETLY REALISE WHY YOU SHOULD!
+*/
 
 #define SENDSERIALDEBUG 0
 
@@ -18,12 +13,20 @@
 #define USEVELOCITYSENSING 1
 
 #if USEVELOCITYSENSING
-  #define MINVELMICROS 6500
-  #define MAXVELMICROS 30000
-  
-  #define MINVELOUT 1
-  #define MAXVELOUT 127
+#define MINVELMICROS 6500
+#define MAXVELMICROS 30000
+
+#define MINVELOUT 1
+#define MAXVELOUT 127
 #endif
+
+///////////
+#include <MIDIUSB.h>
+#include <PitchToNote.h>
+#include "QuickPin.h"
+#include "Note.h"
+
+#define NOP asm("nop")
 
 uint32_t pdsrSnaps[4];
 unsigned long currentMicros;
@@ -53,95 +56,29 @@ enum Channel : byte
   SOLO = 3
 };
 
-inline void SendNoteOn(byte channel, byte pitch, byte velocity = DEFAULTVEL)
-{
-  MidiUSB.sendMIDI({0x09, 0x90 | channel, pitch, velocity});
-  delayMicroseconds(300);
-
-#if SENDSERIALDEBUG
-  SerialUSB.print(channel);
-  SerialUSB.print('-');
-  SerialUSB.print(pitch);
-  SerialUSB.println("->ON");
-#endif
-}
-
-inline void SendNoteOff(byte channel, byte pitch, byte velocity = 127)
-{
-  MidiUSB.sendMIDI({0x08, 0x80 | channel, pitch, velocity});
-  delayMicroseconds(300);
-
-#if SENDSERIALDEBUG
-  SerialUSB.print(channel);
-  SerialUSB.print('-');
-  SerialUSB.print(pitch);
-  SerialUSB.println("->OFF");
-#endif
-}
-
-struct BasicNote
-{
-  bool state;
-  bool prev;
-
-  inline void Poll(byte channel, byte pitch)
-  {
-    if (state != prev)
-    {
-      prev = state;
-
-      if (state)
-        SendNoteOn(channel, pitch);
-      else
-        SendNoteOff(channel, pitch);
-    }
-  }
-};
-
 #if USEVELOCITYSENSING
-const float VELOCITY_DIVISOR = (float)(MAXVELMICROS - MINVELMICROS) / (float)(MAXVELOUT - MINVELOUT);
+#define NOTE_READ(NOTE, UP, DOWN)                                           \
+  if (!DOWN->ReadFromPDSRs(pdsrSnaps)) NOTE.lastDownTime = currentMicros;   \
+  else if (!UP->ReadFromPDSRs(pdsrSnaps)) NOTE.lastUpTime = currentMicros;  
 
-inline byte CalculateVelocity(unsigned long deltaMicros)
-{
-  signed long n = MAXVELMICROS - deltaMicros;
-
-  if (n < 0)
-    return MINVELOUT;
-
-  signed int vel = (unsigned int)((float)n / VELOCITY_DIVISOR) + MINVELOUT;
-
-  return vel > MAXVELOUT ? MAXVELOUT : vel;
-}
-
-struct Note
-{
-  unsigned long lastUpTime;
-  unsigned long lastDownTime;
-
-  inline void Poll(byte channel, byte pitch)
-  {
-    if (lastUpTime && lastDownTime)
-    {
-      #if SENDSERIALDEBUG
-        SerialUSB.print(lastUpTime);
-        SerialUSB.print(" > ");
-        SerialUSB.print(lastDownTime);
-        SerialUSB.print(" : ");
-      #endif
-
-      if (lastDownTime < lastUpTime)
-        SendNoteOff(channel, pitch);
-      else
-        SendNoteOn(channel, pitch, CalculateVelocity(lastDownTime - lastUpTime));
-
-      lastUpTime = lastDownTime = 0;
-    }
-  }
-};
-
+#define NOTE_NEEDS_POLL(NOTE) (NOTE.lastDownTime && NOTE.lastUpTime)
 #else
-typedef BasicNote Note;
+#define NOTE_READ(NOTE, UP, DOWN)                                           \
+  if (!DOWN->ReadFromPDSRs(pdsrSnaps)) NOTE.state = true;                   \
+  else if (!UP->ReadFromPDSRs(pdsrSnaps)) NOTE.state = false;
+  
+#define NOTE_NEEDS_POLL(NOTE) (NOTE.state != NOTE.prev)
 #endif
+
+
+#define MANUALNOTECOUNT 61
+#define SOLONOTECOUNT 37
+#define PEDALNOTECOUNT 25
+
+Note upperNotes[MANUALNOTECOUNT];
+Note lowerNotes[MANUALNOTECOUNT];
+Note soloNotes[SOLONOTECOUNT];
+BasicNote pedalNotes[PEDALNOTECOUNT];
 
 void setup() {
   QUICKPIN::Setup();
@@ -167,33 +104,24 @@ void setup() {
     pedalDowns[i]->UseInputMode();
 }
 
-
-#define MANUALNOTECOUNT 61
-#define SOLONOTECOUNT 37
-#define PEDALNOTECOUNT 25
-
-Note upperNotes[MANUALNOTECOUNT];
-Note lowerNotes[MANUALNOTECOUNT];
-Note soloNotes[SOLONOTECOUNT];
-BasicNote pedalNotes[PEDALNOTECOUNT];
-
-#if USEVELOCITYSENSING
-#define READ(NOTE, UP, DOWN) if (!DOWN->ReadFromPDSRs(pdsrSnaps)) NOTE.lastDownTime = currentMicros; else if (!UP->ReadFromPDSRs(pdsrSnaps)) NOTE.lastUpTime = currentMicros;
-#define NEEDSPOLL(NOTE) (NOTE.lastDownTime && NOTE.lastUpTime)
-#else
-#define READ(NOTE, UP, DOWN) if (!DOWN->ReadFromPDSRs(pdsrSnaps)) NOTE.state = true; else if (!UP->ReadFromPDSRs(pdsrSnaps)) NOTE.state = false;
-#define NEEDSPOLL(NOTE) (NOTE.state != NOTE.prev)
-#endif
-
 void scanPitch(int octavePitch)
 {
-  pitches[octavePitch]->WaitForFallingEdge();
+  volatile uint32_t& pdsr = pitches[octavePitch]->GetPIO()->PIO_PDSR;
+  uint32_t mask = pitches[octavePitch]->GetMask();
 
-  //Yeah, I have no idea why this works...
+  while ((pdsr & mask) == 0) { }
+  while (pdsr & mask) {}
+
+  //Yeah, I have no idea why this works... the number of nops in each case is very specific.
   //1 clock = 11.905ns
-  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");  //95.23ns
-  asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");  //190.48ns
-  
+#if USEVELOCITYSENSING
+  NOP; NOP; NOP; NOP; NOP; NOP; NOP; NOP; //95.23ns
+  NOP; NOP; NOP; NOP; NOP;                //154.762ns
+#else
+  NOP; NOP; NOP; NOP; NOP; NOP; NOP; NOP; //95.23ns
+  NOP; NOP; NOP; NOP;                     //142.847ns
+#endif
+
   pdsrSnaps[0] = PIOA->PIO_PDSR;
   pdsrSnaps[1] = PIOB->PIO_PDSR;
   pdsrSnaps[2] = PIOC->PIO_PDSR;
@@ -206,12 +134,12 @@ void scanPitch(int octavePitch)
   //CL
   if (octavePitch == 0)
   {
-    READ(lowerNotes[0], lowerUps[0], lowerDowns[0]);
-    READ(upperNotes[0], upperUps[0], upperDowns[0]);
+    NOTE_READ(lowerNotes[0], lowerUps[0], lowerDowns[0]);
+    NOTE_READ(upperNotes[0], upperUps[0], upperDowns[0]);
 
     pedalNotes[0].state = !pedalDowns[0]->ReadFromPDSRs(pdsrSnaps);
 
-    READ(soloNotes[0], soloUps[0], soloDowns[0]);
+    NOTE_READ(soloNotes[0], soloUps[0], soloDowns[0]);
 
     return;
   }
@@ -222,14 +150,14 @@ void scanPitch(int octavePitch)
   {
     pitch = i * 12 + octavePitch;
 
-    READ(lowerNotes[pitch], lowerUps[i], lowerDowns[i]);
-    READ(upperNotes[pitch], upperUps[i], upperDowns[i]);
+    NOTE_READ(lowerNotes[pitch], lowerUps[i], lowerDowns[i]);
+    NOTE_READ(upperNotes[pitch], upperUps[i], upperDowns[i]);
   }
 
   //SOLO
   for (int i = 0; i < 3; ++i)
   {
-    READ(soloNotes[i * 12 + octavePitch], soloUps[i], soloDowns[i]);
+    NOTE_READ(soloNotes[i * 12 + octavePitch], soloUps[i], soloDowns[i]);
   }
 }
 
@@ -249,13 +177,13 @@ void loop() {
 
   for (int i = 0; i < MANUALNOTECOUNT; ++i)
   {
-    if (NEEDSPOLL(lowerNotes[i])) lowerNotes[i].Poll(LOWER, FIRSTNOTE + i);
-    if (NEEDSPOLL(upperNotes[i])) upperNotes[i].Poll(UPPER, FIRSTNOTE + i);
+    if (NOTE_NEEDS_POLL(lowerNotes[i])) lowerNotes[i].Poll(LOWER, FIRSTNOTE + i);
+    if (NOTE_NEEDS_POLL(upperNotes[i])) upperNotes[i].Poll(UPPER, FIRSTNOTE + i);
   }
 
   for (int i = 0; i < SOLONOTECOUNT; ++i)
   {
-    if (NEEDSPOLL(soloNotes[i])) soloNotes[i].Poll(SOLO, FIRSTSOLONOTE + i);
+    if (NOTE_NEEDS_POLL(soloNotes[i])) soloNotes[i].Poll(SOLO, FIRSTSOLONOTE + i);
   }
 
   for (int i = 0; i < PEDALNOTECOUNT; ++i)
