@@ -112,15 +112,13 @@ void scanPitch(int octavePitch)
   while ((pdsr & mask) == 0) { }
   while (pdsr & mask) {}
 
-  //Yeah, I have no idea why this works... the number of nops in each case is very specific.
+  //Yeah, I have no idea why this works... the number of nops very specific.
   //1 clock = 11.905ns
-#if USEVELOCITYSENSING
   NOP; NOP; NOP; NOP; NOP; NOP; NOP; NOP; //95.23ns
   NOP; NOP; NOP; NOP; NOP;                //154.762ns
-#else
-  NOP; NOP; NOP; NOP; NOP; NOP; NOP; NOP; //95.23ns
-  NOP; NOP; NOP; NOP;                     //142.847ns
-#endif
+
+  //Add extra to stop pedal scan being too fast sometimes :/
+  NOP; NOP; NOP; NOP;
 
   pdsrSnaps[0] = PIOA->PIO_PDSR;
   pdsrSnaps[1] = PIOB->PIO_PDSR;
