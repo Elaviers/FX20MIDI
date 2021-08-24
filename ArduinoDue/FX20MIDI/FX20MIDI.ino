@@ -10,7 +10,7 @@
 
 #define DEFAULTVEL 127
 
-#define USEVELOCITYSENSING 1
+#define USEVELOCITYSENSING 0
 
 #if USEVELOCITYSENSING
 #define MINVELMICROS 6500
@@ -20,13 +20,19 @@
 #define MAXVELOUT 127
 #endif
 
+#define CRES_MIN 80
+#define CRES_MAX 825
+#define CRES_MIN_DIFF 20 
+#define CRES_AVG_SZ 10
+#define CRES_MIDI_CHANNEL 0 //MIDI Channel
+#define CRES_MIDI_CONTROLLER 11 //Expression Controller
+#define CRES_PIN A0
+
 ///////////
 #include <MIDIUSB.h>
 #include <PitchToNote.h>
 #include "QuickPin.h"
 #include "Note.h"
-
-#define NOP asm("nop")
 
 uint32_t pdsrSnaps[4];
 unsigned long currentMicros;
@@ -109,21 +115,18 @@ void scanPitch(int octavePitch)
   volatile uint32_t& pdsr = pitches[octavePitch]->GetPIO()->PIO_PDSR;
   uint32_t mask = pitches[octavePitch]->GetMask();
 
-  while ((pdsr & mask) == 0) { }
+  while ((pdsr & mask) == 0) {}
   while (pdsr & mask) {}
 
-  //Yeah, I have no idea why this works... the number of nops very specific.
-  //1 clock = 11.905ns
-  NOP; NOP; NOP; NOP; NOP; NOP; NOP; NOP; //95.23ns
-  NOP; NOP; NOP; NOP; NOP;                //154.762ns
+  asm volatile(
+    "NOP\nNOP\nNOP\nNOP\nNOP\nNOP\nNOP\nNOP\n" //95.23ns
+    "NOP\nNOP\nNOP\nNOP\nNOP\n"                //154.762ns
+  );
 
-  //Add extra to stop pedal scan being too fast sometimes :/
-  NOP; NOP; NOP; NOP;
-
-  pdsrSnaps[0] = PIOA->PIO_PDSR;
-  pdsrSnaps[1] = PIOB->PIO_PDSR;
-  pdsrSnaps[2] = PIOC->PIO_PDSR;
-  pdsrSnaps[3] = PIOD->PIO_PDSR;
+  asm("MOV %0, %1\n" : "=r" (pdsrSnaps[0]) : "r" (PIOA->PIO_PDSR));
+  asm("MOV %0, %1\n" : "=r" (pdsrSnaps[1]) : "r" (PIOB->PIO_PDSR));
+  asm("MOV %0, %1\n" : "=r" (pdsrSnaps[2]) : "r" (PIOC->PIO_PDSR));
+  asm("MOV %0, %1\n" : "=r" (pdsrSnaps[3]) : "r" (PIOD->PIO_PDSR));
 
   //PEDAL
   pedalNotes[octavePitch].state =       !pedalDowns[0]->ReadFromPDSRs(pdsrSnaps);
@@ -159,6 +162,35 @@ void scanPitch(int octavePitch)
   }
 }
 
+void updateCres()
+{
+  constexpr float CRES_FLT_DIFF = (float)CRES_MIN_DIFF / (float)(CRES_MAX - CRES_MIN);
+  
+  static float avgVals[CRES_AVG_SZ];
+  static int avgIdx = 0;
+  static float cresAvg = 0.f;
+
+  const int cresVal = analogRead(CRES_PIN);
+  const float cresFlt = cresVal > CRES_MIN ? min((float)(cresVal - CRES_MIN) / (float)(CRES_MAX - CRES_MIN), 1.f) : 0.f;
+  avgVals[avgIdx] = cresFlt / (float)CRES_AVG_SZ;
+
+  cresAvg += avgVals[avgIdx];
+
+  {
+    static float lastSentAvg = -1.f;
+    if (lastSentAvg < 0.f || fabs(cresAvg - lastSentAvg) > CRES_FLT_DIFF)
+    {
+      lastSentAvg = cresAvg;
+      MidiUSB.sendMIDI({0x0B, 0xB0 | CRES_MIDI_CHANNEL, CRES_MIDI_CONTROLLER, (uint8_t)(cresAvg * 127.f)});
+      delayMicroseconds(300);
+    }
+  }
+
+  int nextIdx = (avgIdx + 1) % CRES_AVG_SZ;
+  cresAvg -= avgVals[nextIdx];
+  avgIdx = nextIdx;
+}
+
 void loop() {
   noInterrupts();
   currentMicros = micros();
@@ -188,6 +220,8 @@ void loop() {
   {
     if (pedalNotes[i].state != pedalNotes[i].prev) pedalNotes[i].Poll(PEDAL, FIRSTNOTE + i);
   }
+
+  updateCres();
 
   MidiUSB.flush();
 }

@@ -1,4 +1,4 @@
-inline void SendNoteOn(byte channel, byte pitch, byte velocity = DEFAULTVEL)
+inline void SendNoteOn(byte channel, byte pitch, byte velocity = DEFAULTVEL) noexcept
 {
   MidiUSB.sendMIDI({0x09, 0x90 | channel, pitch, velocity});
   delayMicroseconds(300);
@@ -11,7 +11,7 @@ inline void SendNoteOn(byte channel, byte pitch, byte velocity = DEFAULTVEL)
 #endif
 }
 
-inline void SendNoteOff(byte channel, byte pitch, byte velocity = 127)
+inline void SendNoteOff(byte channel, byte pitch, byte velocity = 127) noexcept
 {
   MidiUSB.sendMIDI({0x08, 0x80 | channel, pitch, velocity});
   delayMicroseconds(300);
@@ -29,7 +29,7 @@ struct BasicNote
   bool state;
   bool prev;
 
-  inline void Poll(byte channel, byte pitch)
+  void Poll(byte channel, byte pitch) noexcept
   {
     if (state != prev)
     {
@@ -44,9 +44,9 @@ struct BasicNote
 };
 
 #if USEVELOCITYSENSING
-const float VELOCITY_DIVISOR = (float)(MAXVELMICROS - MINVELMICROS) / (float)(MAXVELOUT - MINVELOUT);
+constexpr float VELOCITY_DIVISOR = (float)(MAXVELMICROS - MINVELMICROS) / (float)(MAXVELOUT - MINVELOUT);
 
-inline byte CalculateVelocity(unsigned long deltaMicros)
+constexpr byte CalculateVelocity(unsigned long deltaMicros) noexcept
 {
   signed long n = MAXVELMICROS - deltaMicros;
 
@@ -63,7 +63,7 @@ struct Note
   unsigned long lastUpTime;
   unsigned long lastDownTime;
 
-  inline void Poll(byte channel, byte pitch)
+  void Poll(byte channel, byte pitch) noexcept
   {
     if (lastUpTime && lastDownTime)
     {

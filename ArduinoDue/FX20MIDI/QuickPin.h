@@ -1,8 +1,5 @@
 #define ALWAYSINLINE __attribute__((always_inline))
 
-#define _BV(bit) \
-  (1 << (bit)) 
-
 namespace QUICKPIN
 {
   void Setup();
@@ -20,20 +17,21 @@ class Pin
   int _pin;
 
 public:
-  Pin(volatile Pio *pio, uint32_t mask, int portIndex) : _pio(pio), _mask(mask), _portIndex(portIndex), _pin(-1) {}
+  constexpr Pin(volatile Pio *pio, uint32_t mask, int portIndex) noexcept : _pio(pio), _mask(mask), _portIndex(portIndex), _pin(-1) {}
 
-  ALWAYSINLINE void UseInputMode() const { pinMode(_pin, INPUT);};
+  ALWAYSINLINE void UseInputMode() const noexcept { pinMode(_pin, INPUT);};
 
-  ALWAYSINLINE bool ReadFromPDSRs(const uint32_t snapshot[4]) const { return snapshot[_portIndex] & _mask; }
-  ALWAYSINLINE bool Read() const { return _pio->PIO_PDSR & _mask; }
+  ALWAYSINLINE constexpr bool ReadFromPDSRs(const uint32_t snapshot[4]) const noexcept { return snapshot[_portIndex] & _mask; }
+  ALWAYSINLINE bool Read() const noexcept { return _pio->PIO_PDSR & _mask; }
 
-  ALWAYSINLINE volatile Pio* GetPIO() const { return _pio; }
+  ALWAYSINLINE volatile constexpr Pio* GetPIO() const noexcept { return _pio; }
 
-  ALWAYSINLINE uint32_t GetMask() const { return _mask; }
+  ALWAYSINLINE constexpr uint32_t GetMask() const noexcept { return _mask; }
 
   friend void QUICKPIN::Setup();
 };
 
+#define _BV(bit) (1 << (bit))
 #define PA(NUMBER) Pin(PIOA, _BV(NUMBER), 0)
 #define PB(NUMBER) Pin(PIOB, _BV(NUMBER), 1)
 #define PC(NUMBER) Pin(PIOC, _BV(NUMBER), 2)
